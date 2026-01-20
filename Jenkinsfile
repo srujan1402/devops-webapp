@@ -10,7 +10,7 @@ pipeline {
 
         stage('Checkout') {
             steps {
-                git 'https://github.com/YOUR_USERNAME/devops-webapp.git'
+                git 'https://github.com/srujan1402/devops-webapp.git'
             }
         }
 
