@@ -8,36 +8,30 @@ pipeline {
 
     stages {
 
-        stage('Checkout') {
-            steps {
-                git 'https://github.com/srujan1402/devops-webapp.git'
-            }
-        }
-
         stage('Install Dependencies') {
             steps {
-                sh 'npm install'
+                bat 'npm install'
             }
         }
 
         stage('Run Tests') {
             steps {
-                sh 'npm test'
+                bat 'npm test'
             }
         }
 
-        stage('Docker Build') {
+        stage('Build Docker Image') {
             steps {
-                sh '''
-                docker build -t $APP_NAME:$IMAGE_TAG .
-                docker tag $APP_NAME:$IMAGE_TAG $APP_NAME:latest
+                bat '''
+                docker build -t %APP_NAME%:%IMAGE_TAG% .
+                docker tag %APP_NAME%:%IMAGE_TAG% %APP_NAME%:latest
                 '''
             }
         }
 
-        stage('Deploy') {
+        stage('Deploy Application') {
             steps {
-                sh '''
+                bat '''
                 docker-compose down
                 docker-compose up -d
                 '''
